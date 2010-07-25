@@ -49,6 +49,7 @@ module Sinatra
       def draw(options = {})
         if options[:api]
           self.page.content
+        elsif protected_methods.include?(:layout_mobile) && req[:mobile]
         elsif protected_methods.include? :layout
           self.layout
         end
