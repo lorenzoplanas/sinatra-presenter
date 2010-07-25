@@ -8,7 +8,7 @@ module Sinatra
           if block.present?
             content_tag html_tag, args, &block
           else
-            content_tag html_tag, args[0], args[1..-1]
+            content_tag html_tag, args[0], args[1]
           end
         end
         define_method(html_tag, method_body) 
