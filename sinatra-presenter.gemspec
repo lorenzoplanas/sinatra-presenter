@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sinatra-presenter}
-  s.version = "0.0.3"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lorenzo Planas"]
@@ -16,12 +16,10 @@ Gem::Specification.new do |s|
     "Rakefile",
      "VERSION",
      "lib/sinatra_presenter.rb",
-     "lib/sinatra_presenter/.pretty_helper.rb.swp",
      "lib/sinatra_presenter/form_helper.rb",
      "lib/sinatra_presenter/pretty_helper.rb",
      "lib/sinatra_presenter/request_helper.rb",
      "lib/sinatra_presenter/tag_helper.rb",
-     "pkg/sinatra-presenter-0.0.0.gem",
      "sinatra-presenter.gemspec"
   ]
   s.homepage = %q{http://github.com/lplanas/sinatra-presenter}

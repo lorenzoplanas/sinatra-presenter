@@ -9,7 +9,7 @@ module Sinatra
   module Presenter
     module Helpers
       def present(record, method, args={})
-        method = :"#{method}_for_mobile" if req[:mobile]
+        method = :"#{method}_for_mobile" if args[:req][:mobile]
         if record.respond_to? :save
           Object.const_get("#{record.class}Presenter").new(record, args).send(method.to_sym)
         else
