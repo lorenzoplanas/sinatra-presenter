@@ -5,21 +5,24 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sinatra-presenter}
-  s.version = "0.0.5"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lorenzo Planas"]
-  s.date = %q{2010-07-25}
+  s.date = %q{2010-08-01}
   s.description = %q{It really is a view replacement for Sinatra using the presenter pattern}
   s.email = %q{lorenzo.planas@gmail.com}
   s.files = [
     "Rakefile",
      "VERSION",
      "lib/sinatra_presenter.rb",
+     "lib/sinatra_presenter/.pretty_helper.rb.swp",
      "lib/sinatra_presenter/form_helper.rb",
      "lib/sinatra_presenter/pretty_helper.rb",
      "lib/sinatra_presenter/request_helper.rb",
      "lib/sinatra_presenter/tag_helper.rb",
+     "pkg/sinatra-presenter-0.0.4.gem",
+     "pkg/sinatra-presenter-0.0.5.gem",
      "sinatra-presenter.gemspec"
   ]
   s.homepage = %q{http://github.com/lplanas/sinatra-presenter}

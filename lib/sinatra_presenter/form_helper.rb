@@ -25,9 +25,9 @@ module Sinatra
           content_tag :li, t.errors, :class => 'title'
           rsc.errors.each_pair do |field, msgs|
             msgs.each do |msg|
-              content_tag :li do
-                content_tag :label, t[req[:handler]][field]
-                content_tag :span, t.validations[msg]
+              content_tag :li, :class => 'error' do
+                content_tag :span, t[req[:handler]][field], :class => 'field'
+                content_tag :span, t.validations[msg], :class => 'message'
               end
             end
           end
