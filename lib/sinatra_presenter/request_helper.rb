@@ -2,7 +2,7 @@ module Sinatra
   module Presenter
     module RequestHelper
       def route_for(handler_or_resource, action, options={})
-        url = [] 
+        url = [req[:locale]] 
         if handler_or_resource.respond_to? :save
           if handler_or_resource._parent.present?
             url << "#{handler_or_resource._parent.class.to_s.tableize}/#{handler_or_resource._parent.id}" 

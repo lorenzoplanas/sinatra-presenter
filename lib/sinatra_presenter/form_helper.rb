@@ -1,7 +1,11 @@
+require 'i18n'
 module Sinatra
   module Presenter
     module FormHelper
       protected
+      def t(*args)
+        I18n::t(*args)
+      end
 
       def form(options={})
         options = {:method => 'post'}.merge!(options)
@@ -22,12 +26,12 @@ module Sinatra
 
       def errors
         content_tag :ul, :class => 'errors' do
-          content_tag :li, t.errors, :class => 'title'
+          content_tag :li, t("form_errors"), :class => 'title'
           rsc.errors.each_pair do |field, msgs|
             msgs.each do |msg|
               content_tag :li, :class => 'error' do
-                content_tag :span, t[req[:handler]][field], :class => 'field'
-                content_tag :span, t.validations[msg], :class => 'message'
+                content_tag :span, t("#{req[:handler]}.#{field}"), :class => 'field'
+                content_tag :span, msg, :class => 'message'
               end
             end
           end
@@ -38,7 +42,7 @@ module Sinatra
         singular = rsc.class.to_s.downcase
         plural = singular.pluralize
         if options[:nested]
-          options.merge!({:label => t[options[:nested].pluralize][options[:name]]})
+          options.merge!({:label => t("#{options[:nested].pluralize}.#{options[:name]}")})
           if options[:nested] == options[:nested].pluralize
             if embedded = rsc.send(options[:nested].to_sym) && embedded.present? && embedded[options[:index]].present?
               options = {:value => rsc.send(options[:nested].to_sym)[options[:index]].send(options[:name])}.merge! options 
@@ -50,7 +54,7 @@ module Sinatra
           end
         else
           options = ({:value => rsc.send(options[:name])}).merge! options
-          options.merge!({:label => t[plural][options[:name]], :name => "#{singular}[#{options[:name]}]"})
+          options.merge!({:label => t("#{plural}.#{options[:name]}"), :name => "#{singular}[#{options[:name]}]"})
         end
       end
 
@@ -109,7 +113,7 @@ module Sinatra
       end
 
       def submit(options = {})
-        options[:value] = t.buttons[options[:value]] if options[:value].present?
+        options[:value] = I18n::t("buttons.#{options[:value]}") if options[:value].present?
         tag :input, options.merge!({:type => 'submit'})
       end
 

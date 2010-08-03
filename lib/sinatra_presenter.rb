@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require 'r18n-desktop'
+require 'i18n'
 require 'sinatra_presenter/request_helper'
 require 'sinatra_presenter/tag_helper'
 require 'sinatra_presenter/form_helper'
@@ -19,7 +19,6 @@ module Sinatra
     end
   
     class Base
-      include R18n::Helpers
       include Sinatra::Presenter::Helpers
       include Sinatra::Presenter::RequestHelper
       include Sinatra::Presenter::TagHelper
@@ -45,6 +44,10 @@ module Sinatra
       def buf(html)
         self.page.content = self.page.content + html.to_s
         nil
+      end
+
+      def t(*args)
+        I18n::t(*args)
       end
 
       def draw(options = {})
