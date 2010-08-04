@@ -43,7 +43,7 @@ module Sinatra
       protected
 
       def buf(html)
-        self.page.content = self.page.content + html.to_s
+        self.page.content = self.page.content + html.to_s.force_encoding('utf-8')
         nil
       end
 
