@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'sinatra/base'
 require 'i18n'
 require 'sinatra_presenter/request_helper'

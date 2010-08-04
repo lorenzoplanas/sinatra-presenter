@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'i18n'
 module Sinatra
   module Presenter

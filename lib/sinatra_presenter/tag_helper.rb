@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module Sinatra
   module Presenter
     module TagHelper
