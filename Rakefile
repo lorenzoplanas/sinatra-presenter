@@ -1,18 +1,11 @@
-# encoding : UTF-8
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gemspec|
-    gemspec.name = "sinatra-presenter"
-    gemspec.summary = "View replacement for Sinatra using the presenter pattern"
-    gemspec.description = "It really is a view replacement for Sinatra using the presenter pattern"
-    gemspec.email = "lorenzo.planas@gmail.com"
-    gemspec.homepage = "http://github.com/lplanas/sinatra-presenter"
-    gemspec.authors = ["Lorenzo Planas"]
-    gemspec.files.include "lib/*.rb"
-    gemspec.files.include "lib/**/*.rb"
-    gemspec.test_files.include "spec/**/*.rb"
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler not available. Install it with: gem install jeweler"
+# encoding: UTF-8
+$LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+require "sinatra_presenter"
+ 
+task :build do
+  system "gem build sinatra-presenter.gemspec"
+end
+ 
+task :release => :build do
+  system "gem push qsupport-#{Sinatra::Presenter::VERSION}"
 end
