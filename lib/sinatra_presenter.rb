@@ -11,7 +11,7 @@ module Sinatra
       # rsc is nil and the collection is assigned to a member with this name.
       # After initialization, method is called on the presenter.
       def present(record, method, args={})
-        if record.respond_to? :save || record.respond_to :collection
+        if record.respond_to?(:save) || record.respond_to(:collection)
           Object.const_get("#{record.class}Presenter").new(record, args).send(method.to_sym)
         else
           Object.const_get("#{args.delete(:class)}Presenter").new(nil, args.merge!(:collection => record)).send(method.to_sym)
