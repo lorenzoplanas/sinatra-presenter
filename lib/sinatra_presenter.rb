@@ -4,14 +4,14 @@ require 'page'
 
 module Sinatra
   module Presenter
-    VERSION = "1.0.0"
+    VERSION = "1.0.1"
 
     module Helpers
       # rsc is an underlying model instance if present. If a collections is passed,
       # rsc is nil and the collection is assigned to a member with this name.
       # After initialization, method is called on the presenter.
       def present(record, method, args={})
-        if record.respond_to? :save
+        if record.respond_to? :save || record.respond_to :collection
           Object.const_get("#{record.class}Presenter").new(record, args).send(method.to_sym)
         else
           Object.const_get("#{args.delete(:class)}Presenter").new(nil, args.merge!(:collection => record)).send(method.to_sym)
