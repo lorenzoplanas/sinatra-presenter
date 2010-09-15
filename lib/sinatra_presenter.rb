@@ -11,10 +11,10 @@ module Sinatra
       # rsc is nil and the collection is assigned to a member with this name.
       # After initialization, method is called on the presenter.
       def present(record, method, args={})
-        if record.respond_to?(:save) || record.respond_to(:collection)
-          Object.const_get("#{record.class}Presenter").new(record, args).send(method.to_sym)
-        else
+        if record.kind_of?(Enumerable) || args[:class].present?
           Object.const_get("#{args.delete(:class)}Presenter").new(nil, args.merge!(:collection => record)).send(method.to_sym)
+        else
+          Object.const_get("#{record.class}Presenter").new(record, args).send(method.to_sym)
         end
       end
     end
@@ -49,7 +49,10 @@ module Sinatra
           if content_or_options_with_block.is_a?(Hash)
             content_or_options_with_block.each_pair { |k, v| attrs << "#{k}=\"#{v}\"" }
           end
-          page.buf "<#{tag}#{attrs.join(' ').insert(0, ' ') if attrs.present?}>#{yield}</#{tag}>"
+          page.buf "<#{tag}#{attrs.join(' ').insert(0, ' ') if attrs.present?}>"
+          result = yield
+          page.buf result unless result.kind_of? Enumerable
+          page.buf "</#{tag}>"
         else
           content_or_options_with_block, options = nil, content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
           options.each_pair { |k, v| attrs << "#{k}=\"#{v}\"" } 

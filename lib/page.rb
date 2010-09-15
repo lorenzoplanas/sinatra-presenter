@@ -8,5 +8,6 @@ class Page
 
   def buf(text)
     content << text.to_s
+    nil
   end
 end
