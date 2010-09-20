@@ -37,38 +37,14 @@ module Sinatra
       # Renders @page content
       def draw(options = {})
         if protected_methods.include?(:layout) && options[:api].blank?
-          self.layout
+          self.layout # It should call self.page.content
         else
           self.page.content
         end
       end
 
-      def content_tag(tag, content_or_options_with_block = nil, options = {}, &block)
-        attrs = [] 
-        if block_given? 
-          if content_or_options_with_block.is_a?(Hash)
-            content_or_options_with_block.each_pair { |k, v| attrs << "#{k}=\"#{v}\"" }
-          end
-          page.buf "<#{tag}#{attrs.join(' ').insert(0, ' ') if attrs.present?}>"
-          result = yield
-          page.buf result unless result.kind_of? Enumerable
-          page.buf "</#{tag}>"
-        else
-          content_or_options_with_block, options = nil, content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
-          options.each_pair { |k, v| attrs << "#{k}=\"#{v}\"" } 
-          page.buf "<#{tag}#{attrs.join(' ').insert(0, ' ') if attrs.present?}>#{content_or_options_with_block}</#{tag}>"
-        end
-      end
-
-      def tag(tag, options={})
-        attrs = []
-        options.each_pair { |k, v| attrs << "#{k}=\"#{v}\"" }
-        page.buf "<#{tag}#{attrs.join(' ').insert(0, ' ') if attrs.present?} />"
-      end
-
       protected
   
-      # Delegates missing methods to model instance
       def method_missing(method, *args)
         rsc.send(method, *args)
       end
